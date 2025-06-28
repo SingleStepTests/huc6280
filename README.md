@@ -3,7 +3,7 @@ Mesen-generated Huc6280 JSON single-step tests
 
 Mesen *may* be the most accurate Huc6280 emulator currently. It passes timing tests other emulators don't. It needs more research, though, and these tests are only as good as Mesen.
 
-These tests are not perfect. They treat RAM as a flat 2MB chunk, with no MMU other than the usual MPR translation. I wasn't clear on if "dummy reads" and "dummy writes" actually happened, so I just included a "dummy pin" indicating if a cycle was either.
+These tests are not perfect. They treat RAM as a flat 2MB chunk, with no MMU other than the usual MPR translation.
 
 Also, due to limitations in the test generator, currently only up to 500 RAM pairs and 500 cycles are supported. This is only an issue for block-move instructions.
 
@@ -88,12 +88,12 @@ A list of cycles, assuming that opcode fetch is the first cycle (many emulators 
 
 Example:
 ```json
-[ 2097151, 255, "r-d" ]
+[ 2097151, 255, "r-" ]
 ```
 
-This is address pins, data pins, and r/w/dummy pins. A pin is 'on' if it is present in the list, and 'off' if it is -.
+This is address pins, data pins, and r/w pins. A pin is 'on' if it is present in the list, and 'off' if it is -.
 
-The read and write pins should be obvious. The dummy pins are to indicate a "dummy memory access." I suspect these don't even make it to the bus on a real Huc6280, but it's possible they do, the same as a 6502.
+The read and write pins should be obvious.
 
 ## Disclaimers
 
