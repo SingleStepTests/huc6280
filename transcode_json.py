@@ -11,7 +11,9 @@ def load_cycles(buf, ptr):
     full_sz = 4
     num_cycles = unpack_from('I', buf, ptr)[0]
     ptr += 4
-    for i in range(0, num_cycles):
+    rec_cycles = unpack_from('I', buf, ptr)[0]
+    ptr += 4
+    for i in range(0, rec_cycles):
         cdata = unpack_from('I', buf, ptr)[0]
         ptr += 4
         full_sz += 4
@@ -26,7 +28,7 @@ def load_cycles(buf, ptr):
         pstr += 'd' if dummy else '-'
         cycles.append([addr, data, pstr])
 
-    return full_sz, cycles
+    return full_sz, cycles, num_cycles
 
 
 def load_state(buf, ptr) -> (int, Any):
@@ -90,7 +92,9 @@ def decode_test(buf, ptr) -> (int, Dict):
     ptr += sz
     sz, test['final'] = load_state(buf, ptr)
     ptr += sz
-    sz, test['cycles'] = load_cycles(buf, ptr)
+    sz, ns, num_cycles = load_cycles(buf, ptr)
+    test['num_cycles'] = num_cycles
+    test['cycles'] = ns
     ptr += sz
 
     #print(json.dumps(test, indent=2))
