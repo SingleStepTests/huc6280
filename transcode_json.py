@@ -25,8 +25,10 @@ def load_cycles(buf, ptr):
         data = (cdata >> 24) & 0xFF
         pstr = 'r' if rd else '-'
         pstr += 'w' if wr else '-'
-        if dummy:
-            pstr = '--'
+        pstr += 'd' if dummy else '-'
+        if not rd and not wr:
+            addr = 0
+            data = 0
         cycles.append([addr, data, pstr])
 
     return full_sz, cycles, num_cycles

@@ -88,10 +88,11 @@ A list of cycles, assuming that opcode fetch is the first cycle (many emulators 
 
 Example:
 ```json
-[ 2097151, 255, "r-" ]
+[ 2097151, 255, "r-d" ]
 ```
 
 This is address pins, data pins, and r/w pins. A pin is 'on' if it is present in the list, and 'off' if it is -.
+d is the 'dummy' pin. This is for 'dummy' reads and writes, which are spurious (but real) reads or writes the CPU does. 
 
 The read and write pins should be obvious.
 
